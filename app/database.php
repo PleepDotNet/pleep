@@ -6,6 +6,25 @@ class database {
 	private $counter = NULL;
 	public $error = false;
 	public $errorMessage = "";
+    protected static $instance = null;
+	
+	public static function getInstance($AutoCreate = false)
+	{
+		if (!self::$instance) {
+			self::init();
+		}
+		return self::$instance;
+	}
+	
+	public static function init()
+	{
+		return self::setInstance(new self(DB_HOST, DB_USER, DB_PW, DB_DB));
+	}
+	
+	public static function setInstance($instance)
+	{
+		return self::$instance = $instance;
+	}
 	
 	public function __construct($host, $user, $pass, $database) {
 		$this->connection = mysql_connect($host, $user, $pass);
@@ -15,6 +34,7 @@ class database {
 			$this->error = true;
 			$this->errorMessage = "Database doesn't exist";
 		}
+		$this->instance = $this;
 	}
 	
 	public function disconnect() {
@@ -35,7 +55,7 @@ class database {
 	}
 	
 	public function fetchRow() {
-		return mysql_fetch_assoc($this->result);
+ 		return mysql_fetch_array($this->result);
 	}
 	
 	public function count() {

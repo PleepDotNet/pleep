@@ -9,7 +9,7 @@ if (!isset($p)) {
 	$p = 'home';
 }
 
-$content = new content($p, $db);
+$content = new content($p);
 $content->getContent();
 
 ?>

@@ -4,55 +4,35 @@ class content {
 	private $tpl;
 	
 	public function __construct($p = 'home', $db = NULL) {
-		$menu = new menu('top_menu', $p, $db);
-		$tplID = $this->getTemplateID($p, $db);
-		$pageID = $this->getPageID($p, $db);
+		$menu = new menu('top_menu', $p);
+		$tplID = $this->getTemplateID($p);
+		$pageID = $this->getPageID($p);
 		
-		echo $tplID. ", ". $pageID. ", ". $p;
-		
-		$this->tpl = new template($tplID, $db);
-		$page = new page($pageID, $db);
+		$this->tpl = new template($tplID, $menu);
+		$page = new page($pageID);
 	}
 	
 	public function getContent() {
 		$this->tpl->display();
 	}
 
-	private function getTemplateID($p, $db = NULL) {
-		$wasDB = false;
-		if ($db == NULL) {
-			$wasDB = false;
-			$db = new database(DB_HOST, DB_USER, DB_PW, DB_DB);
-		} else {
-			$wasDB = true;
-		}
+	private function getTemplateID($p) {
+		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_escape_string($this->p). "'");
+		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_escape_string($p). "'");
 		$dbObj = $db->fetchRow();
 		
-		return $dbObj['template_id'];
-
-		if ($wasDB == false) {
-			$db->disconnect();
-		}
+		$id = $dbObj['template_id'];
+		return $id;
 	}
 
-	private function getPageID($p, $db = NULL) {
-		$wasDB = false;
-		if ($db == NULL) {
-			$wasDB = false;
-			$db = new database(DB_HOST, DB_USER, DB_PW, DB_DB);
-		} else {
-			$wasDB = true;
-		}
+	private function getPageID($p) {
+		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_escape_string($this->p). "'");
-		$dbObj = $db->fetchRow();
-		
-		return $dbObj['page_id'];
+		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_escape_string($p). "'");
+		$db->fetchRow();
+		$dbObj = $db->row;
 
-		if ($wasDB == false) {
-			$db->disconnect();
-		}
+		return $dbObj['page_id'];
 	}
 }

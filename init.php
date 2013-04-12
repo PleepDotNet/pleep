@@ -15,6 +15,4 @@ require_once DIR. '/app/database.php';
 require_once DIR. '/app/content.php';
 require_once DIR. '/lib/savant/Savant3.php';
 
-$db = new database(DB_HOST, DB_USER, DB_PW, DB_DB);
-
 ?>
