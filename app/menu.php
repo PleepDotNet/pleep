@@ -29,10 +29,20 @@ class menu {
 		
 		$db->query("SELECT * FROM menu_items WHERE menu_id = '". mysql_escape_string($this->menuId). "' ORDER BY _order");
 		while ($dbObj = $db->fetchRow()) {
-			if ($dbObj['name'] == $this->activeItem) {
-				$this->_htmlContent .= '<li class="active"><a href="'. $dbObj['link']. '">'. $dbObj['title']. '</a></li>';
-			} else {
-				$this->_htmlContent .= '<li><a href="'. $dbObj['link']. '">'. $dbObj['title']. '</a></li>';
+			if ($dbObj['visible'] == 1) {
+				
+				$title = $dbObj['title'];
+				$loggedinTitle = $dbObj['title_loggedin'];
+				$auth = auth::getInstance();
+				if ($auth->loggedIn() == true && strlen($loggedinTitle) > 0) {
+					$title = $loggedinTitle;
+				}
+				
+				if ($dbObj['name'] == $this->activeItem) {
+					$this->_htmlContent .= '<li class="active"><a href="'. $dbObj['link']. '">'. $title. '</a></li>';
+				} else {
+					$this->_htmlContent .= '<li><a href="'. $dbObj['link']. '">'. $title. '</a></li>';
+				}
 			}
 		}
 	}

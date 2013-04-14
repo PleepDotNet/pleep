@@ -13,6 +13,7 @@ require_once DIR. '/app/page.php';
 require_once DIR. '/app/menu.php';
 require_once DIR. '/app/database.php';
 require_once DIR. '/app/content.php';
+require_once DIR. '/app/security/auth.php';
 require_once DIR. '/lib/savant/Savant3.php';
 
 ?>
