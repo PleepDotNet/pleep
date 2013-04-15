@@ -24,11 +24,12 @@
 # SOFTWARE.																		#
 # ############################################################################# #
 
-?>
+define("pleep", true);
+include 'init.php';
 
-<div id="footer">
-	<div class="container">
-		<?php $this->FooterMenu->displayMenu(); ?>
-		<p class="muted credit">&copy; <?php echo date("Y"); ?> pleep.net</p>
-	</div>
-</div>
+$p = '404';
+
+$content = new content($p);
+$content->getContent();
+
+?>

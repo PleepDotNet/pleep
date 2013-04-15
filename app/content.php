@@ -28,12 +28,16 @@ class content {
 	private $tpl;
 	
 	public function __construct($p = 'home', $db = NULL) {
-		$menu = new menu('top_menu', $p);
+		$topMenu = new menu('top_menu', $p);
+		$footerMenu = new menu('footer_menu', $p);
+		$menues = array('top'		=>		$topMenu,
+						'footer'	=>		$footerMenu);
+		
 		$tplID = $this->getTemplateID($p);
 		$pageID = $this->getPageID($p);
 		
-		$this->tpl = new template($tplID, $menu);
 		$page = new page($pageID);
+		$this->tpl = new template($page->title, $tplID, $menues);
 	}
 	
 	public function getContent() {

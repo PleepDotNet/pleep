@@ -33,5 +33,11 @@
 <?php include("elements/topmenu.php"); ?>
 <?php include("forms/login.php"); ?>
 
+<div class="wrap">
+
+</div>
+
+<?php include("elements/footer.php"); ?>
+
 </body>
 </html>

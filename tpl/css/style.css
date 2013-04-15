@@ -30,6 +30,8 @@
 */
 body {
 	padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+	height: 100%;
+	margin-bottom: 30px;
 }
 .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
 	width: 1040px;
@@ -48,16 +50,57 @@ body {
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
 	box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
-.form-signin .form-signin-heading,  .form-signin .checkbox {
+.form-signin .form-signin-heading, .form-signin .checkbox {
 	margin-bottom: 10px;
 }
-.form-signin input[type="text"],  .form-signin input[type="password"] {
+.form-signin input[type="text"], .form-signin input[type="password"] {
 	font-size: 16px;
 	height: auto;
 	margin-bottom: 15px;
 	padding: 7px 9px;
 }
-
 .right {
 	float: right;
+}
+._404 {
+	margin: 80px 0;
+	margin-top: 12%;
+	text-align: center;
+}
+._404 h1 {
+	font-size: 100px;
+	line-height: 1;
+}
+._404 .lead {
+	font-size: 24px;
+	line-height: 1.25;
+}
+._404 .btn {
+	font-size: 21px;
+	padding: 14px 24px;
+}
+#footer {
+	height: 20px;
+	padding: 20px;
+	background-color: #f5f5f5;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+}
+
+.footer_menu {
+	float: right;
+}
+
+.footer_menu li {
+	float: left;
+	margin-left: 8px;
+}
+
+.footer_menu .active a {
+	color: #333;
+}
+
+.footer_menu .nav>li>a:hover, .nav>li>a:focus {
+	background-color: none;
 }

@@ -26,7 +26,7 @@
 
 class menu {
 	private $menuId;
-	private $name;
+	public $name;
 	private $_htmlContent;
 	private $activeItem;
 	

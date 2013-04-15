@@ -32,5 +32,12 @@
 
 <?php include("elements/topmenu.php"); ?>
 
+
+<div class="wrap">
+
+</div>
+
+<?php include("elements/footer.php"); ?>
+
 </body>
 </html>
