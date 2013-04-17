@@ -15,7 +15,7 @@ class page {
 		$this->_id = $pageID;
 		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM pages WHERE id = '". mysql_escape_string($this->_id). "'");
+		$db->query("SELECT * FROM pages WHERE id = '". mysql_real_escape_string($this->_id). "'");
 		$dbObj = $db->fetchRow();
 		var_dump($dbObj);
 		if ($db->count() > 0) {

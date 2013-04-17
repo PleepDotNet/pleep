@@ -14,9 +14,9 @@ class modules {
 		while ($dbObj = $db->fetchRow()) {
 			if (file_exists(DIR. "/admin/modules/". $dbObj['file'])) {
 				if ($_GET['mod'] == $dbObj['name']) {
-					$html .= '<li class="active"><a href="/admin/index.php?mod='. $dbObj['name']. '&mod_file='. $dbObj['file']. '">'. utf8_encode($dbObj['title']). '</a></li>';
+					$html .= '<li class="active"><a href="/admin/index.php?mod='. $dbObj['name']. '&mod_file='. $dbObj['file']. '"><span class="'. $dbObj['icon_class']. '"></span> '. utf8_encode($dbObj['title']). '</a></li>';
 				} else {
-					$html .= '<li><a href="/admin/index.php?mod='. $dbObj['name']. '&mod_file='. $dbObj['file']. '">'. utf8_encode($dbObj['title']). '</a></li>';
+					$html .= '<li><a href="/admin/index.php?mod='. $dbObj['name']. '&mod_file='. $dbObj['file']. '"><span class="'. $dbObj['icon_class']. '"></span> '. utf8_encode($dbObj['title']). '</a></li>';
 				}
 			}
 		}

@@ -14,7 +14,7 @@ class template {
 	function __construct($tplPageTitle, $tplId, $menues) {
 		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM templates WHERE id = '". mysql_escape_string($tplId). "'");
+		$db->query("SELECT * FROM templates WHERE id = '". mysql_real_escape_string($tplId). "'");
 		$dbObj = $db->fetchRow();
 		$this->tplLocation = $dbObj['location'];
 		

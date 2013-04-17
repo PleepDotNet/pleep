@@ -34,7 +34,7 @@ class content {
 	private function getTemplateID($p) {
 		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_escape_string($p). "'");
+		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_real_escape_string($p). "'");
 		$dbObj = $db->fetchRow();
 		
 		$id = $dbObj['template_id'];
@@ -44,7 +44,7 @@ class content {
 	private function getPageID($p) {
 		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_escape_string($p). "'");
+		$db->query("SELECT * FROM menu_items WHERE name = '". mysql_real_escape_string($p). "'");
 		$db->fetchRow();
 		$dbObj = $db->row;
 

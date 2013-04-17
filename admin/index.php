@@ -5,6 +5,8 @@ include(DIR. "./admin/modules.php");
 
 $modules = new modules();
 
+error_reporting(E_ERROR|E_WARNING);
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -28,6 +30,10 @@ body {
 	padding-right: 5px;
 }
 }
+
+.clear {
+	clear:both;
+}
 </style>
 </head>
 
@@ -35,7 +41,6 @@ body {
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
-			<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
 			<a class="brand" href="/admin/">Administration - pleep.net</a>
 			<div class="nav-collapse collapse">
 				<p class="navbar-text pull-right"> 
@@ -62,12 +67,21 @@ body {
 		<?php
 		
 		if (!empty($_GET['mod'])) {
-			include(DIR. "/admin/modules/". $_GET['mod_file']);
+			if (file_exists(DIR. "/admin/modules/". $_GET['mod_file'])) {
+				include(DIR. "/admin/modules/". $_GET['mod_file']);
+			} else {
+				?>
+				<h2>Module nicht gefunden</h2>
+				<div class="alert alert-error">
+					Die Modul-Datei <strong><?php echo $_GET['mod_file'] ?></strong> des Moduls <strong><?php echo $_GET['mod'] ?></strong> konnte nicht gefunden werden. Bitte überprüfen Sie die Administration oder wenden Sie sich an Ihren Systemadministrator.
+				</div>			
+				<?php
+			}
 		} else {
 			?>
 			<h2>Module</h2>
 			<div class="alert alert-info">
-				Bitte <strong>links</strong> ein Modul auswählen.
+				Bitte wählen Sie <strong>links</strong> ein Modul aus.
 			</div>			
 			<?php
 		}
@@ -84,5 +98,7 @@ body {
 	</footer>
 </div>
 <!--/.fluid-container-->
+<script language="javascript" src="../lib/jquery-1.9.1.min.js"></script>
+<script language="javascript" src="../lib/bootstrap/js/bootstrap.min.js"></script>
 </body>
 </html>

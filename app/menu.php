@@ -12,6 +12,8 @@ class menu {
 	public $name;
 	private $_htmlContent;
 	private $activeItem;
+	private $_allItems = 0;
+	private $_visibleItems = 0;
 	
 	function __construct($name, $activeItem) {
 		$this->name = $name;
@@ -22,7 +24,7 @@ class menu {
 	private function loadMenu() {
 		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM menus WHERE name = '". mysql_escape_string($this->name). "'");
+		$db->query("SELECT * FROM menus WHERE name = '". mysql_real_escape_string($this->name). "'");
 		$dbObj = $db->fetchRow();
 		
 		$this->_htmlContent = '<ul class="nav '. $dbObj['name']. '">';
@@ -34,9 +36,11 @@ class menu {
 	private function loadMenuItems() {
 		$db = database::getInstance();
 		
-		$db->query("SELECT * FROM menu_items WHERE menu_id = '". mysql_escape_string($this->menuId). "' ORDER BY _order");
+		$db->query("SELECT * FROM menu_items WHERE menu_id = '". mysql_real_escape_string($this->menuId). "' ORDER BY _order");
 		while ($dbObj = $db->fetchRow()) {
+			$this->_allItems ++;
 			if ($dbObj['visible'] == 1) {
+				$this->_visibleItems ++;
 				
 				$title = $dbObj['title'];
 				$loggedinTitle = $dbObj['title_loggedin'];
@@ -51,6 +55,14 @@ class menu {
 					$this->_htmlContent .= '<li><a href="'. $dbObj['link']. '">'. $title. '</a></li>';
 				}
 			}
+		}
+	}
+	
+	public function countMenuItems($oVisible = true) {
+		if ($oVisible == true) {
+			return $this->_visibleItems;
+		} else {
+			return ($this->_allItems - $this->_visibleItems);
 		}
 	}
 	
